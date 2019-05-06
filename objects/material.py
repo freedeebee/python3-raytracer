@@ -1,12 +1,13 @@
 import numpy as np
+import settings
 
 
 class Material:
-    def __init__(self, color, ambient, diffuse, specular, shine):
+    def __init__(self, color, shine=settings.SHINE):
         self.color = color
-        self.ambient = ambient
-        self.diffuse = diffuse
-        self.specular = specular
+        self.ambient = settings.AMBIENT
+        self.diffuse = settings.DIFFUSE
+        self.specular = settings.SPECULAR
         self.shine = shine
 
     def base_color_at_p(self, p):
@@ -22,13 +23,13 @@ class Material:
         lr = (light_direction - normal * (2 * abs(scalar)))
         spec_color = light.color * self.specular * (np.dot(lr, ray.direction * -1)) ** self.shine
 
-        return amb_color + dif_color + spec_color
+        return amb_color + dif_color
 
 
 class CheckerboardMaterial(Material):
-    def __init__(self, color, ambient, diffuse, specular, shine):
-        super(CheckerboardMaterial, self).__init__(color, ambient, diffuse, specular, shine)
-        self.baseColor = Color((255, 255, 255))
+    def __init__(self, color):
+        super(CheckerboardMaterial, self).__init__(color)
+        self.baseColor = color
         self.otherColor = Color((0, 0, 0))
         self.checkSize = 1
 

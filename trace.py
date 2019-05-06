@@ -9,10 +9,6 @@ from rendering.parts import Camera, Light, Ray
 BACKGROUND_COLOR = Color((0, 0, 0))
 
 IMAGE_WIDTH = IMAGE_HEIGHT = 400
-AMBIENT = 0.6
-DIFFUSE = 0.5
-SPECULAR = 0.5
-SHINE = 20
 MAX_LEVEL = 1
 
 light = Light(np.array([30, 30, 10]), Color((255, 255, 255)))
@@ -25,12 +21,12 @@ fov = 45
 camera = Camera(e, u, c, fov, IMAGE_HEIGHT, IMAGE_WIDTH)
 
 materials = {
-    'red': Material(Color((255, 0, 0)), AMBIENT, DIFFUSE, SPECULAR, SHINE),
-    'green': Material(Color((0, 255, 0)), AMBIENT, DIFFUSE, SPECULAR, SHINE),
-    'blue': Material(Color((0, 0, 255)), AMBIENT, DIFFUSE, SPECULAR, SHINE),
-    'yellow': Material(Color((255, 255, 0)), AMBIENT, DIFFUSE, SPECULAR, 0),
-    'checker_board': CheckerboardMaterial(Color((0, 180, 100)), 0.5, 0.2, 0.1, 0),
-    'grey': Material(Color((40, 40, 40)), AMBIENT, DIFFUSE, SPECULAR, 0)
+    'red': Material(Color((255, 0, 0))),
+    'green': Material(Color((0, 255, 0))),
+    'blue': Material(Color((0, 0, 255))),
+    'yellow': Material(Color((255, 255, 0)), 0),
+    'checker_board': CheckerboardMaterial(Color((0, 180, 100))),
+    'grey': Material(Color((40, 40, 40)))
 }
 
 object_list = [
@@ -38,7 +34,7 @@ object_list = [
     Sphere(np.array([-2.5, 3, -10]), 2, materials['green']),
     Sphere(np.array([0.0, 7, -10]), 2, materials['blue']),
     Triangle(np.array([2.5, 3, -10]), np.array([-2.5, 3, -10]), np.array([0, 7, -10]), materials['yellow']),
-    Plane(np.array([0, 0, 0]), np.array([0, 10, 0]), materials['grey'])
+    Plane(np.array([0, 0, 0]), np.array([0, 10, 0]), materials['checker_board'])
 ]
 
 
