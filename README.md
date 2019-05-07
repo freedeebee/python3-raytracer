@@ -11,4 +11,4 @@ This is a simple python3 raytracer rendering a 3D Scene. 3 Objects (Plane, Trian
 - `pip install -r requirements.txt`
 - `python trace.py`
 - wait a while
-- have fund with your rendered image
+- have fun with your rendered image
