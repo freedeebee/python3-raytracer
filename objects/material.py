@@ -14,21 +14,26 @@ class Material:
         return self.color
 
     def calc_color(self, light, light_direction, normal, ray, intersection):
-        scalar = np.dot(light_direction, normal)
 
         amb_color = self.base_color_at_p(intersection) * self.ambient
 
-        dif_color = light.color * self.diffuse * scalar
+        dif_color = light.color * self.diffuse * np.dot(light_direction, normal)
 
-        lr = (light_direction - normal * (2 * abs(scalar)))
-        spec_color = light.color * self.specular * (np.dot(lr, ray.direction * -1)) ** self.shine
+        if not settings.REFLECTION:
+            return amb_color + dif_color
+        else:
+            lr = (light_direction - normal * (2 * abs(np.dot(light_direction, normal))))
+            spec_color = light.color * self.specular * (np.dot(lr, -ray.direction)) ** self.shine
 
-        return amb_color + dif_color
+            return amb_color + dif_color + spec_color
 
 
 class CheckerboardMaterial(Material):
     def __init__(self, color):
-        super(CheckerboardMaterial, self).__init__(color)
+        super().__init__(color, 0)
+        self.ambient = 1
+        self.diffuse = 0.6
+        self.specular = 0.2
         self.baseColor = color
         self.otherColor = Color((0, 0, 0))
         self.checkSize = 1

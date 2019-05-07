@@ -1,17 +1,18 @@
 import math
 import numpy as np
 from helpers import normalize
+from objects.material import Color
 
 
 class Camera:
 
-    def __init__(self, e, u, c, fov, image_height, image_width):
+    def __init__(self, e, u, c, fov, image_width, image_height):
         self.e = e
         self.u = u
         self.c = c
         self.fov = fov
-        self.image_height = image_height
         self.image_width = image_width
+        self.image_height = image_height
 
         self.f = normalize(self.c - self.e)
         self.s = normalize(np.cross(self.f, u))
@@ -31,9 +32,9 @@ class Camera:
 
 
 class Light:
-    def __init__(self, position, color):
+    def __init__(self, position):
         self.position = position
-        self.color = color
+        self.color = Color((255, 255, 255))
 
 
 class Ray:
